@@ -1,0 +1,13 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor & Temporary
+*.tmp
+*.bak
+*.swp
+.idea/
+.vscode/
+
+# Node
+node_modules/
