@@ -36,10 +36,12 @@ flowchart TD
 
 ### 1. Archetype Classification
 Automatically identifies workspace types:
-* **Frontend / Full-Stack** (`Next.js`, `Vite`, `React`, `Vue`): Enforces 1px micro-borders, 3-tier design tokens, 320px responsive reflow, and WCAG 2.2 AA (A1–A8).
-* **Backend / API / Systems** (`FastAPI`, `Go`, `Rust`, `Express`): Enforces contract-first schemas, runtime validation at boundaries, and test harnesses.
+* **Frontend / Full-Stack / Webapp** (`Next.js`, `Vite`, `React`, `Vue`): Enforces feature colocation (`src/features/`), 1px micro-borders, 3-tier design tokens, 320px responsive reflow, and WCAG 2.2 AA (A1–A8).
+* **Chrome Extension (Manifest V3)** (`manifest.json`): Enforces strict isolation (`src/background/`, `src/content/`, `src/popup/`, `src/options/`), CSP compliance, and Chrome DevTools MCP. Root reserved for extension configs.
+* **Script / Quant / Indicator Systems** (`Pine Script`, `Python Quant/Bot`, `MQL5`): Enforces self-contained bundles (`scripts/<System_Name>/`), companion manifests (engine, strategy, docs, spec), and zero-repainting gates.
+* **Backend / API / Systems** (`FastAPI`, `Go`, `Rust`, `Express`): Enforces contract-first schemas, runtime validation at boundaries, domain modules (`src/modules/<name>/`), and test harnesses.
 * **Antigravity Plugin / DevKit** (`plugin.json`, `.agents/plugins`): Enforces modular plugin isolation and cryptographic integrity verification.
-* **Monorepo / Multi-Package**: Enforces boundary contracts and scoped workspace testing.
+* **Monorepo / Multi-Package**: Enforces boundary contracts (`apps/`, `packages/`) and scoped workspace testing.
 
 ### 2. Skill Collision & Overlap Resolution
 When multiple toolkits intersect, `init-gemini` generates a deterministic resolution matrix:
@@ -64,6 +66,7 @@ flowchart LR
 ```
 
 ### 4. Grounded Guardrails & Hardwired DoD
+* **Zero Root Pollution & Directory Isolation**: Absolute ban on dumping loose source files, scripts, or docs into the root. Enforces archetype-tailored directory containment (`scripts/<Name>/` for quant, `src/features/<name>/` for fullstack, `src/background/` for Chrome extensions).
 * **Evidence Before Claims**: Never report `PASS` without concrete terminal output, DOM inspection, or computed proof.
 * **Minimal Necessary Complexity**: Existing code > platform standards > bespoke code > evaluated dependencies.
 * **Anti-AI Slop**: Hard bans generic buzzwords (*delve*, *streamline*, *testament*, *seamlessly*) and fabricated testimonials.

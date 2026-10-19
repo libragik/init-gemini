@@ -1,6 +1,6 @@
 ---
 name: init-gemini
-description: Principal Software Architect skill that audits any workspace, resolves skill collisions, synthesizes an adaptive Mermaid execution pipeline, and generates a high-density, production-grade GEMINI.md flight manual (<75 lines, zero redundancy).
+description: Principal Software Architect skill that audits any workspace, resolves skill collisions, synthesizes an adaptive Mermaid execution pipeline, and generates a high-density, production-grade GEMINI.md flight manual (<75 lines, zero redundancy) with archetype-adaptive directory isolation and zero root pollution.
 ---
 
 # Principal Software Architect & GEMINI.md Synthesizer
@@ -18,14 +18,16 @@ Activated whenever the user:
 ## Phase 1: Deep Architectural Audit & Archetype Classification
 
 1. **Workspace Inspection**:
-   - Inspect workspace root, repository metadata, dependencies (`package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`), lockfiles, and directory structure.
+   - Inspect workspace root, repository metadata, dependencies (`package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `manifest.json`), lockfiles, and directory structure.
    - Detect test runners, linters, package managers (`pnpm`, `bun`, `npm`, `cargo`, `pytest`), and active MCP tools (`chrome-devtools-mcp`, `github-mcp-server`).
 2. **Archetype Classification**:
    Identify the primary workspace archetype:
-   - **Frontend / Full-Stack** (`Next.js`, `Vite`, `React`, `Vue`, `Svelte`): Focus on visual craft, token tiers, responsive reflow (320px), WCAG 2.2 AA (A1-A8), and Chrome DevTools MCP.
-   - **Backend / Systems / API** (`FastAPI`, `Go`, `Rust`, `Express`, `Django`): Focus on contract-first schemas, runtime input validation, cryptographic boundaries, and test suites.
+   - **Chrome Extension (Manifest V3)** (`manifest.json`): Focus on Manifest V3 boundaries, service worker background, isolated content scripts, popup/options UI, and DevTools inspection. Root reserved strictly for config.
+   - **Frontend / Full-Stack / Webapp** (`Next.js`, `Vite`, `React`, `Vue`, `Svelte`, `FastAPI`): Focus on Feature-Driven Colocation, visual craft, responsive reflow (320px), WCAG 2.2 AA (A1-A8), and Chrome DevTools MCP.
+   - **Script / Quant / Indicator Systems** (`Pine Script`, `Python Quant/Bot`, `MQL5`, CLI automation): Focus on self-contained system folders (`scripts/<System_Name>/`), companion bundle manifests, non-repainting verification, and offline lint/audit gates.
+   - **Backend / Systems / API** (`FastAPI`, `Go`, `Rust`, `Express`, `Django`): Focus on contract-first schemas, runtime input validation, cryptographic boundaries, modular domain containment (`src/modules/<feature>/`), and test suites.
    - **Antigravity Plugin / Customization Package** (`plugin.json`, `.agents/plugins`): Focus on modular plugin isolation, cryptographic integrity (`validate-kit`), and zero root clutter.
-   - **Monorepo / Multi-Package** (`pnpm-workspace.yaml`, `turbo.json`): Focus on package boundary isolation and scoped verification.
+   - **Monorepo / Multi-Package** (`pnpm-workspace.yaml`, `turbo.json`): Focus on package boundary isolation (`apps/`, `packages/`) and scoped verification.
    - **Greenfield / Scratchpad**: Focus on rapid vertical slicing (`product-build`) and verifiable MVP loops.
 
 ---
@@ -50,7 +52,7 @@ Antigravity workspaces frequently bundle overlapping global and local skills (e.
 
 Synthesize a tailored, sequential Mermaid flowchart reflecting the detected archetype:
 
-- **For Full-Stack / UI Workspaces**:
+- **For Full-Stack / UI / Webapp Workspaces**:
 ```mermaid
 flowchart TD
     A["1. Strategy & Vision<br><b>Elite Kit: product-build</b>"] --> B["2. Task Decomposition<br><b>Addy: planning-and-task-breakdown</b>"]
@@ -59,6 +61,25 @@ flowchart TD
     D --> E["5. Code Quality Check<br><b>Addy: code-review-and-quality</b>"]
     E --> F["6. Visual & A11y Audit<br><b>Elite Kit: design-review</b>"]
     F --> G["7. Release Verification<br><b>Elite Kit: ship-check</b>"]
+```
+
+- **For Chrome Extension Workspaces**:
+```mermaid
+flowchart TD
+    A["1. Manifest & Permissions<br><b>spec-driven-development</b>"] --> B["2. Component Architecture<br><b>background / content / popup isolation</b>"]
+    B --> C["3. Implementation & DevTools<br><b>chrome-devtools-mcp</b>"]
+    C --> D["4. Security & CSP Audit<br><b>security-and-hardening</b>"]
+    D --> E["5. Release Packaging<br><b>ship-check</b>"]
+```
+
+- **For Script / Quant / Trading Workspaces**:
+```mermaid
+flowchart TD
+    A["1. Architecture & Spec<br><b>pine-architect / quant-spec</b>"] --> B["2. State Modeling<br><b>pine-diagram-gen</b>"]
+    B --> C["3. Implementation<br><b>pine-developer / quant-code</b>"]
+    C --> D["4. Lint & Quality Gates<br><b>pine_linter / linters</b>"]
+    D --> E["5. Repaint & Realism Audit<br><b>pine-auditor / backtester</b>"]
+    E --> F["6. Publish Gate & Alerts<br><b>pine-publisher & secret-scan</b>"]
 ```
 
 - **For Backend / API Workspaces**:
@@ -81,6 +102,12 @@ flowchart TD
 4. **Anti-AI Slop Directive**: Zero generic templates, ungrounded bento grids, placeholder testimonials, or banned AI clichés (*delve*, *streamline*, *testament*, *seamlessly*).
 5. **Safe Operations**: Require explicit user authorization for external pushes, deployments, or destructive commands.
 6. **RTL & BiDi Compliance**: If `urdu-rtl` is active, enforce UTF-8, RTL HTML wrapping, and `<bdi dir="ltr">` token isolation.
+7. **Zero Root Pollution & Archetype Directory Isolation (Strict)**:
+   Never create loose source files, scratch scripts, feature components, or markdown docs in the workspace root. Inject the corresponding directory mandate into Section 5 of `GEMINI.md`:
+   - **Chrome Extension**: Root reserved strictly for config (`manifest.json`, bundler, `package.json`). Modules strictly isolated in `src/background/`, `src/content/`, `src/popup/`, `src/options/`. Assets in `assets/`.
+   - **Full-Stack / Webapp / Website**: Enforce Feature-Driven Colocation (`src/features/<feature_name>/` or `src/modules/<name>/`). Components, hooks, types, styles, and unit tests colocated in their feature directory. Shared UI in `src/components/ui/`.
+   - **Script / Quant / Indicator**: Dedicated directory per system (`scripts/<System_Name>/`). Mandatory companion bundle manifest: `<Name>_Engine`, `<Name>_Strategy`, `<Name>_Description.md`, and `spec.md` colocated together.
+   - **Monorepo**: Isolated boundaries inside `apps/<app_name>/` and `packages/<pkg_name>/`. Zero application logic in root.
 
 ### Definition of Done (DoD)
 Hardcode criteria grounded in the actual workspace:
@@ -91,14 +118,15 @@ Hardcode criteria grounded in the actual workspace:
 
 ---
 
-## Synthesis Principles (Strict Constraints)
+## Phase 5: Synthesis Principles (Strict Constraints)
 
 - **Total Length Under 75 Lines**: Crisp directives, tables, and Mermaid flow. Zero conversational fluff.
+- **Mandatory Section 5**: Always include `## 5. Directory Isolation & Zero Root Pollution` with the archetype-tailored rule.
 - **Zero Redundancy**: Do not list skills that Antigravity already discovers via progressive disclosure.
 - **The Orchestrator Mindset**: `GEMINI.md` is an operational flight manual governing agent decisions, not a tutorial.
 
 ## Execution Flow
-1. Run directory/file inspection commands to detect archetype, tools, and installed plugins.
-2. Formulate the Overlap Matrix and tailored Mermaid pipeline.
+1. Run directory/file inspection commands to detect archetype, tools, package scripts, and installed plugins.
+2. Formulate the Overlap Matrix, tailored Mermaid pipeline, and archetype directory mandate.
 3. Write `./GEMINI.md` using `write_to_file`.
 4. Output a concise executive summary confirming the generated flight manual.
