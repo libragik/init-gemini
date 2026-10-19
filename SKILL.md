@@ -21,8 +21,8 @@ Activated whenever the user:
    - Inspect workspace root, repository metadata, dependencies (`package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `manifest.json`), lockfiles, and directory structure.
    - Detect test runners, linters, package managers (`pnpm`, `bun`, `npm`, `cargo`, `pytest`), and active MCP tools (`chrome-devtools-mcp`, `github-mcp-server`).
 2. **Archetype Classification**:
-   Identify the primary workspace archetype:
-   - **Chrome Extension (Manifest V3)** (`manifest.json`): Focus on Manifest V3 boundaries, service worker background, isolated content scripts, popup/options UI, and DevTools inspection. Root reserved strictly for config.
+   - **Chrome Extension Builder / Multi-Extension Suite** (`Chrome-Extension-Builder`, multi-extension hub, or workspaces housing extension plugins like `chromecraft-pro`): Multi-extension workspace. Every extension MUST be scaffolded into its own isolated directory under `extensions/<extension_name>/` (e.g. `extensions/my-extension/`) with dedicated `manifest.json`, `package.json`, `src/`, `icons/`, `_locales/`, and `dist/`. Workspace root is strictly reserved for workspace configs, `.agents/`, and orchestration. NEVER scaffold extensions directly in the workspace root.
+   - **Dedicated Single Chrome Extension**: When an isolated repository is explicitly a single standalone extension (`manifest.json` already present at root). Focus on Manifest V3 boundaries, service worker background, isolated content scripts, popup/options UI, and DevTools inspection. Root reserved strictly for config.
    - **Frontend / Full-Stack / Webapp** (`Next.js`, `Vite`, `React`, `Vue`, `Svelte`, `FastAPI`): Focus on Feature-Driven Colocation, visual craft, responsive reflow (320px), WCAG 2.2 AA (A1-A8), and Chrome DevTools MCP.
    - **Script / Quant / Indicator Systems** (`Pine Script`, `Python Quant/Bot`, `MQL5`, CLI automation): Focus on self-contained system folders (`scripts/<System_Name>/`), companion bundle manifests, non-repainting verification, and offline lint/audit gates.
    - **Backend / Systems / API** (`FastAPI`, `Go`, `Rust`, `Express`, `Django`): Focus on contract-first schemas, runtime input validation, cryptographic boundaries, modular domain containment (`src/modules/<feature>/`), and test suites.
@@ -63,13 +63,15 @@ flowchart TD
     F --> G["7. Release Verification<br><b>Elite Kit: ship-check</b>"]
 ```
 
-- **For Chrome Extension Workspaces**:
+- **For Chrome Extension Builder / Suite Workspaces**:
 ```mermaid
 flowchart TD
-    A["1. Manifest & Permissions<br><b>spec-driven-development</b>"] --> B["2. Component Architecture<br><b>background / content / popup isolation</b>"]
-    B --> C["3. Implementation & DevTools<br><b>chrome-devtools-mcp</b>"]
-    C --> D["4. Security & CSP Audit<br><b>security-and-hardening</b>"]
-    D --> E["5. Release Packaging<br><b>ship-check</b>"]
+    A["1. Extension Isolation<br><b>extensions/&lt;name&gt;/</b>"] --> B["2. Manifest & Specs<br><b>crx-scaffold</b>"]
+    B --> C["3. MV3 Architecture<br><b>crx-architect</b>"]
+    C --> D["4. Closed Shadow DOM UI<br><b>crx-ui-craft</b>"]
+    D --> E["5. Live DevTools Verification<br><b>crx-test-browser</b>"]
+    E --> F["6. CWS Policy Audit<br><b>crx-store-audit</b>"]
+    F --> G["7. Perf & Packaging<br><b>crx-release-ops</b>"]
 ```
 
 - **For Script / Quant / Trading Workspaces**:
@@ -104,10 +106,12 @@ flowchart TD
 6. **RTL & BiDi Compliance**: If `urdu-rtl` is active, enforce UTF-8, RTL HTML wrapping, and `<bdi dir="ltr">` token isolation.
 7. **Zero Root Pollution & Archetype Directory Isolation (Strict)**:
    Never create loose source files, scratch scripts, feature components, or markdown docs in the workspace root. Inject the corresponding directory mandate into Section 5 of `GEMINI.md`:
-   - **Chrome Extension**: Root reserved strictly for config (`manifest.json`, bundler, `package.json`). Modules strictly isolated in `src/background/`, `src/content/`, `src/popup/`, `src/options/`. Assets in `assets/`.
-   - **Full-Stack / Webapp / Website**: Enforce Feature-Driven Colocation (`src/features/<feature_name>/` or `src/modules/<name>/`). Components, hooks, types, styles, and unit tests colocated in their feature directory. Shared UI in `src/components/ui/`.
-   - **Script / Quant / Indicator**: Dedicated directory per system (`scripts/<System_Name>/`). Mandatory companion bundle manifest: `<Name>_Engine`, `<Name>_Strategy`, `<Name>_Description.md`, and `spec.md` colocated together.
-   - **Monorepo**: Isolated boundaries inside `apps/<app_name>/` and `packages/<pkg_name>/`. Zero application logic in root.
+   - **Chrome Extension Builder / Multi-Extension Suite**: Root is strictly reserved for workspace orchestration (`GEMINI.md`, `.agents/`, workspace configs). Every extension MUST be fully scaffolded inside its own isolated folder `extensions/<extension_name>/` (e.g. `extensions/my-extension/`). Each extension directory contains its own `manifest.json`, `package.json`, bundler config, `src/`, `icons/`, `_locales/`, and `dist/`. Zero extension source files, manifests, or build outputs at workspace root.
+   - **Full-Stack / Webapp / Website**: Root is strictly reserved for configs. Every new webapp, website, or service MUST be created inside its own isolated directory: `apps/<app_name>/` or `websites/<site_name>/` (e.g. `apps/portfolio/`, `apps/saas-dashboard/`). When working inside an app, enforce Feature-Driven Colocation (`src/features/<feature_name>/` or `src/modules/<name>/`). Never create loose HTML, components, or scripts at the workspace root.
+   - **Script / Quant / Indicator Systems (Pine Script / Python Quant)**: Every indicator, strategy, or bot MUST be scaffolded into its own dedicated isolated directory: `scripts/<System_Name>/` or `strategies/<System_Name>/` (e.g. `scripts/EMA_Trend_Rider/`). Mandatory companion bundle manifest colocated together: `<Name>_Engine`, `<Name>_Strategy`, `<Name>_Description.md`, and `spec.md`. Zero loose `.pine` or `.py` files at workspace root.
+   - **Backend / Microservices / APIs / Bots**: Every service, bot, or API MUST live in its own isolated directory: `services/<service_name>/` or `bots/<bot_name>/` or `src/modules/<feature>/`.
+   - **Monorepo / Multi-Package**: Isolated boundaries inside `apps/<app_name>/` and `packages/<pkg_name>/`. Zero application logic in root.
+   - **Dedicated Standalone Project**: If and only if the workspace root is an established single-repo project, root is reserved strictly for config. Modules strictly isolated in domain directories. Zero loose files.
 
 ### Definition of Done (DoD)
 Hardcode criteria grounded in the actual workspace:
